@@ -44,4 +44,14 @@ class User extends Authenticatable
         return $this->hasManyThrough('App\Study', 'App\Access', 'user_id', 'id', 'id', 'study_id');
     }
 
+    function sublist(){
+
+        return  $this->hasManyThrough('App\Study_item',  'App\Access', 'user_id', 'study_id', 'id', 'study_id');
+
+    }
+    function subStudyPartisipants(){
+
+        return  $this->belongsTo('App\Access');
+    }
+
 }

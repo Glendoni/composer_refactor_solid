@@ -3,12 +3,14 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Access;
 use App\Study;
+use App\Study_item;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\Study as StudyResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\StudyCollection;
 use App\Http\Resources\AccessCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/studies/{id}', 'StudyController@edit');
     Route::post('/studies', 'StudyController@update');
     Route::post('/createStudy', 'StudyController@create');
+    Route::post('/addStudyItem/{id}', 'StudyController@addStudyItem');
+    Route::get('/studyItemListing/{id}', 'StudyController@studyItemListing');
+    Route::get('/formStudyItemListing/{id}', 'StudyController@formStudyItemListing');
+    Route::get('/study_users/{id}/{studyitem}', 'StudyController@study_users');
+    Route::post('/study_item_access', 'StudyController@study_item_access');
+    Route::get('/study_users_form_populators/{id}', 'StudyController@study_users_form_populators');
 
-    Route::get('foo', function(){
+    Route::get('study_users', function(){
 
         $user =  Auth::id();
         return $user;
@@ -51,17 +59,45 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::get('/questionstreams', 'FormController@index');
     Route::get('/questionstreams/{id}', 'FormController@show');
+    Route::post('/saveForLater/{id}', 'FormController@store');
+    Route::get('/getFormValues/{id}', 'FormController@getFormValues');
+
 
 
     Route::post('/user', function (Request $request) {
 
-return  $request;
-       // return User::first()->access;
+       // $request = json_decode($request);
+        //print_r($request);
+
+
+
+
+        //unset($request['options']['name']);
+//        print_r($request['options']);
+//
+//        exit();
+        foreach ($request['options'] as $item) {
+unset($item['name']);
+            DB::table('study_item_accesses')->insert([$item
+            ]);
+        }
+        DB::table('study_item_accesses')->where('value', '=', null)->delete();
+
+       // return response()->json($request);
+        exit;
+
+     //$study = Access::find(1)->access;
 
        // return UserResource::collection(User::all());
 
 
         //return response()->json($study);
+
+//            DB::table('accesses')
+//            ->join('users', 'accesses.user_id', '=', 'users.id')
+//            ->where('accesses.study_id', 10)
+//            ->select('users.*')
+//            ->get();
 
 
     });

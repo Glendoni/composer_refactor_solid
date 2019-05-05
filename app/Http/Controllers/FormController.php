@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Form;
 use Illuminate\Http\Request;
 use App\Stream;
@@ -40,9 +40,18 @@ class FormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,  $formId)
     {
-        //
+ //return  $form;
+        $stream = new Form;
+        $stream->user_id = Auth::id();
+        $stream->saved_for_later_answers = json_encode($request->post());
+        $stream->study_id = $formId;
+        $stream->save();
+
+//        $questions = json_encode($request->post());
+//        Stream::where('question_uniqid', $request->question_uniqid)
+//            ->update(['questions' => $questions]);
     }
 
     /**
@@ -53,12 +62,13 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        $flight = Stream::where('studyId', $id)->get();
-        $flight = $flight->pluck('questions');
-        $flight = json_decode($flight);
-        $flight = Arr::flatten($flight);
+        $form = Stream::where('studyId', $id)->get();
+        $form = $form->pluck('questions');
+        $form = json_decode($form);
 
-        print '[' . join($flight, ',') . ']';
+        $form = Arr::flatten($form);
+
+        print '[' . join($form, ',') . ']';
     }
 
     /**
@@ -93,5 +103,16 @@ class FormController extends Controller
     public function destroy(Form $form)
     {
         //
+    }
+
+    public function getFormValues($id){
+
+     $form = Form::where('study_id', $id)->select('saved_for_later_answers')->get();
+
+         //
+        $form =   $form->pluck('saved_for_later_answers');
+        $form = json_decode($form);
+print_r($form[0]);
+       // return '[' . join($form, ',') . ']';
     }
 }

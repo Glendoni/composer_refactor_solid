@@ -13,7 +13,7 @@ class Study extends Model
      * @var array
      */
     protected $hidden = [
-        'description'
+        ''
     ];
 
 }
