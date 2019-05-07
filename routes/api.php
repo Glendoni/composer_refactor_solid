@@ -35,6 +35,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/studies', 'StudyController@update');
     Route::post('/createStudy', 'StudyController@create');
     Route::post('/addStudyItem/{id}', 'StudyController@addStudyItem');
+    Route::get('/getStudyItem/{id}', 'StudyController@studyItem');
+    Route::post('/studyItemUpdate/{id}', 'StudyController@studyItemUpdate');
+
     Route::get('/studyItemListing/{id}', 'StudyController@studyItemListing');
     Route::get('/formStudyItemListing/{id}', 'StudyController@formStudyItemListing');
     Route::get('/study_users/{id}/{studyitem}', 'StudyController@study_users');

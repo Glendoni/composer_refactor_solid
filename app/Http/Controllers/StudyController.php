@@ -272,4 +272,19 @@ from users u
         DB::table('study_item_accesses')->where('value', '=', null)->delete();
 
     }
+
+    function studyItem($id){
+        return Study_item::where('id',$id)->get();
+
+
+    }
+    function studyItemUpdate(Request $request, $id){
+        $study = Study_item::find($id);
+        $study->name = $request->name;
+        $study->note = $request->note;
+        $study->study_id = $request->study_id;
+        $study->save();
+
+        return response()->json($study);
+    }
 }
