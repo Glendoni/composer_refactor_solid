@@ -39,7 +39,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/studyItemUpdate/{id}', 'StudyController@studyItemUpdate');
 
     Route::get('/studyItemListing/{id}', 'StudyController@studyItemListing');
-    Route::get('/formStudyItemListing/{id}', 'StudyController@formStudyItemListing');
+
+
+
     Route::get('/study_users/{id}/{studyitem}', 'StudyController@study_users');
     Route::post('/study_item_access', 'StudyController@study_item_access');
     Route::get('/study_users_form_populators/{id}', 'StudyController@study_users_form_populators');
@@ -61,9 +63,13 @@ Route::middleware('auth:api')->group(function () {
 //forms
 Route::middleware('auth:api')->group(function () {
     Route::get('/questionstreams', 'FormController@index');
+    Route::get('/formStudyItemListings/{id}', 'StudyController@formStudyItemListings');
+    Route::get('/formStudyItemListing/{id}', 'StudyController@formStudyItemListing');
     Route::get('/questionstreams/{id}', 'FormController@show');
     Route::post('/saveForLater/{id}', 'FormController@store');
+
     Route::get('/getFormValues/{id}', 'FormController@getFormValues');
+    Route::get('/getFormUser', 'UserController@getFormUser');
 
 
 

@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c97e7ab7-93dc-4278-b462-aac09dcac73b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_temp_1.zkWuFg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_temp_1.zkWuFg.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_toast.33HYYw.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_toast.33HYYw.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_toast_temp_1.5ixBaA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/pg_toast_temp_1.5ixBaA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/fc61fd33-640f-4432-bb1c-3a800e397ca3/storage_v2/_src_/database/comparison.CeyqzQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Http/Controllers/AccessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Http/Controllers/AccessController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Http/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Http/Controllers/FormController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Http/Controllers/StudyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Http/Controllers/StudyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/../routes/api.php" afterDir="false" />
     </list>
@@ -67,26 +77,14 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.8466135">
+    <splitter split-orientation="horizontal" split-proportion="0.4797657">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Http/Controllers/FormController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="721">
-                  <caret line="114" column="15" selection-start-line="114" selection-start-column="15" selection-end-line="114" selection-end-column="15" />
-                  <folding>
-                    <element signature="e#39#75#0#PHP" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Http/Controllers/StudyController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="275" column="22" selection-start-line="275" selection-start-column="13" selection-end-line="275" selection-end-column="22" />
+                <state relative-caret-position="-726">
+                  <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
                   <folding>
                     <element signature="e#40#76#0#PHP" expanded="true" />
                   </folding>
@@ -95,19 +93,23 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Http/Controllers/StreamController.php">
+            <entry file="file://$PROJECT_DIR$/Http/Controllers/FormController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1155">
-                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+                <state relative-caret-position="345">
+                  <caret line="98" column="6" lean-forward="true" selection-start-line="98" selection-start-column="6" selection-end-line="98" selection-end-column="6" />
                   <folding>
-                    <element signature="e#40#68#0#PHP" expanded="true" />
+                    <element signature="e#39#75#0#PHP" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/studies">
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses">
               <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
                 <state>
                   <filtering enabled="true" />
@@ -116,10 +118,25 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/access_study">
+            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/study_item_accesses">
               <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
                 <state>
                   <filtering enabled="true" />
+                  <column-attributes>
+                    <column name="ctid" enabled="false" />
+                  </column-attributes>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Http/Controllers/PassportController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="255">
+                  <caret line="26" column="24" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="24" />
+                  <folding>
+                    <element signature="e#40#68#0#PHP" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -132,67 +149,6 @@
                   <column-attributes>
                     <column name="ctid" enabled="false" />
                   </column-attributes>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Http/Controllers/AccessController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="670">
-                  <caret line="129" column="49" selection-start-line="129" selection-start-column="49" selection-end-line="129" selection-end-column="49" />
-                  <folding>
-                    <element signature="e#39#52#0#PHP" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/forms">
-              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-                <state>
-                  <filtering enabled="true" />
-                  <column-attributes>
-                    <column name="completed_answers" languageId="JSON" />
-                    <column name="saved_for_later_answers" languageId="JSON" />
-                    <column name="ctid" enabled="false" />
-                  </column-attributes>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses">
-              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-                <state>
-                  <filtering enabled="true" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/streams">
-              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-                <state>
-                  <filtering enabled="true" />
-                  <column-attributes>
-                    <column name="questionConfig" languageId="JSON" />
-                    <column name="questions" languageId="JSON" />
-                  </column-attributes>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Http/Controllers/StudyController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="145">
-                  <caret line="44" selection-start-line="44" selection-end-line="45" />
                 </state>
               </provider>
             </entry>
@@ -228,13 +184,16 @@
         <option value="$PROJECT_DIR$/Study.php" />
         <option value="$PROJECT_DIR$/Http/Controllers/FormController.php" />
         <option value="$PROJECT_DIR$/Study_item.php" />
+        <option value="edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/edd2452a-4c5a-4d27-9c68-c5bc88cf177d/console_1.sql" />
         <option value="$PROJECT_DIR$/Http/Controllers/AccessController.php" />
         <option value="$PROJECT_DIR$/Http/Controllers/StudyController.php" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-1442" />
+    <option name="x" value="478" />
     <option name="y" value="-1080" />
     <option name="width" value="1920" />
     <option name="height" value="1080" />
@@ -245,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -264,17 +222,31 @@
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Middleware" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -305,17 +277,18 @@
       <workItem from="1556271288766" duration="27192000" />
       <workItem from="1556852752772" duration="250000" />
       <workItem from="1556931436502" duration="15551000" />
+      <workItem from="1557228796963" duration="14705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57759000" />
+    <option name="totallyTimeSpent" value="72464000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1442" y="-1080" width="1920" height="1080" extended-state="0" />
+    <frame x="478" y="-1080" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13525027" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.13631523" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -330,12 +303,36 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="12" visible="true" weight="0.32928064" />
+      <window_info anchor="bottom" id="Database Console" order="12" weight="0.32928064" />
+      <window_info anchor="right" x="0" y="0" width="430" height="880" id="Documentation" side_tool="true" weight="0.32960597" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.32960597" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13631523" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="12" visible="true" weight="0.32928064" />
+      <window_info anchor="right" x="0" y="0" width="430" height="880" id="Documentation" order="0" side_tool="true" weight="0.32960597" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.32960597" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -445,16 +442,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Http/Controllers/PassportController.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Http/Controllers/AccessController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="129" column="49" selection-start-line="129" selection-start-column="49" selection-end-line="129" selection-end-column="49" />
-          <folding>
-            <element signature="e#39#52#0#PHP" expanded="true" />
-          </folding>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/streams">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -462,33 +453,47 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-          <column-attributes>
-            <column name="completed_answers" languageId="JSON" />
-            <column name="saved_for_later_answers" languageId="JSON" />
-            <column name="ctid" enabled="false" />
-          </column-attributes>
         </state>
       </provider>
     </entry>
-    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/streams">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-          <column-attributes>
-            <column name="questionConfig" languageId="JSON" />
-            <column name="questions" languageId="JSON" />
-          </column-attributes>
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/Auth/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
     <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/users.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/Auth/ForgotPasswordController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/AccessController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="112" column="7" lean-forward="true" selection-start-line="112" selection-start-column="7" selection-end-line="112" selection-end-column="7" />
+          <folding>
+            <element signature="e#39#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/access_study">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -502,10 +507,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/access_study">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/StreamController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Http/Middleware/Authenticate.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/edd2452a-4c5a-4d27-9c68-c5bc88cf177d/console_1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="44" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/PassportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="26" column="24" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="24" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Http/Controllers/FormController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="98" column="6" lean-forward="true" selection-start-line="98" selection-start-column="6" selection-end-line="98" selection-end-column="6" />
+          <folding>
+            <element signature="e#39#75#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -519,30 +557,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Http/Controllers/FormController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="114" column="15" selection-start-line="114" selection-start-column="15" selection-end-line="114" selection-end-column="15" />
-          <folding>
-            <element signature="e#39#75#0#PHP" expanded="true" />
-          </folding>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/study_item_accesses">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+          <column-attributes>
+            <column name="ctid" enabled="false" />
+          </column-attributes>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Http/Controllers/StreamController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1155">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
+    <entry file="das://edd2452a-4c5a-4d27-9c68-c5bc88cf177d/database/comparison/schema/public/table/accesses">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Http/Controllers/StudyController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="275" column="22" selection-start-line="275" selection-start-column="13" selection-end-line="275" selection-end-column="22" />
+        <state relative-caret-position="-726">
+          <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
           <folding>
             <element signature="e#40#76#0#PHP" expanded="true" />
           </folding>

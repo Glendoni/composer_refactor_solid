@@ -112,7 +112,13 @@ class FormController extends Controller
          //
         $form =   $form->pluck('saved_for_later_answers');
         $form = json_decode($form);
-print_r($form[0]);
+
+
+if(count($form)) {
+
+    print_r($form[0]);
+
+}
        // return '[' . join($form, ',') . ']';
     }
 }
