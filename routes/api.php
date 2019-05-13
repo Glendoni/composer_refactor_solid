@@ -11,6 +11,7 @@ use App\Http\Resources\StudyCollection;
 use App\Http\Resources\AccessCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Cms_form_config;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,46 +70,17 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/saveForLater/{id}', 'FormController@store');
 
     Route::get('/getFormValues/{id}', 'FormController@getFormValues');
+    Route::post('/globalsiteconfig/', 'FormController@globalSiteConfig');
+
     Route::get('/getFormUser', 'UserController@getFormUser');
 
 
 
-    Route::post('/user', function (Request $request) {
+    Route::get('/getGlobalSiteConfig/{id?}', function ($id = null) {
+        $Cms_form_config =  DB::table('cms_form_configs')->where([['study_id' , '=', $id]])->get();
+      ;
 
-       // $request = json_decode($request);
-        //print_r($request);
-
-
-
-
-        //unset($request['options']['name']);
-//        print_r($request['options']);
-//
-//        exit();
-        foreach ($request['options'] as $item) {
-unset($item['name']);
-            DB::table('study_item_accesses')->insert([$item
-            ]);
-        }
-        DB::table('study_item_accesses')->where('value', '=', null)->delete();
-
-       // return response()->json($request);
-        exit;
-
-     //$study = Access::find(1)->access;
-
-       // return UserResource::collection(User::all());
-
-
-        //return response()->json($study);
-
-//            DB::table('accesses')
-//            ->join('users', 'accesses.user_id', '=', 'users.id')
-//            ->where('accesses.study_id', 10)
-//            ->select('users.*')
-//            ->get();
-
-
+       return $Cms_form_config;
     });
 
 

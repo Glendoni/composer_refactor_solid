@@ -108,18 +108,28 @@ class StudyController extends Controller
 
     public function addStudyItem(Request $request, $id)
     {
+
+$preCheckTableToPreventDuplicates = Study_item::first()->where([['study_id', $id],['name',$request->name]])->get();
         $study = new Study_item;
         $study->name = $request->name;
         $study->note = $request->note;
         $study->study_id = $request->study_id;
         $study->created_by = Auth::id();
-        $study->save();
+
+        if(!count($preCheckTableToPreventDuplicates)){
+            $study->save();
+        }else{
+
+
+        }
+        //
     }
 
     public function studyItemListing($id)
     {
         return DB::table('study_items')
-            ->whereRaw('study_id =' . $id . '  and id not in (select study_items_id from study_item_accesses  where  value = false and study_id= ' . $id . ')')
+            ->whereRaw('study_id =' . $id .
+                ' and id not in (select study_items_id from study_item_accesses  where  value = false and study_id= ' . $id . ')')
             ->select('name', 'id', 'study_id')
             ->get();
     }
@@ -136,8 +146,8 @@ class StudyController extends Controller
 ON sia.study_id = s.id 
                    where sia.user_id= ' . Auth::id() . ' 
                    and sia.value= true 
-                   and sia.study_id= ' . $id . ' and s.start_date  < (CURRENT_DATE-0)
-and (s.end_date   >  (CURRENT_DATE-0) or s.end_date  is null))')
+                   and sia.study_id= ' . $id . ' and s.start_date  < (CURRENT_DATE+1)
+and (s.end_date   >  (CURRENT_DATE+1) or s.end_date  is null))')
             ->select('name', 'id', 'study_id')
             ->get();
     }
@@ -180,7 +190,8 @@ from users u
                             join study_items si
                                  on sia.study_items_id = si.id
                    where sia.study_id = ' . $study_id . ' and study_items_id= ' . $study_item_id . ') T2
-                  on u.id = T2.user_id)');
+                  on u.id = T2.user_id)
+                  order by u.name');
     }
 
     public function study_users_form_populators($id)

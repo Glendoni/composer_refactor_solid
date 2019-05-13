@@ -6,6 +6,7 @@ use App\Form;
 use Illuminate\Http\Request;
 use App\Stream;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class FormController extends Controller
 {
@@ -42,16 +43,23 @@ class FormController extends Controller
      */
     public function store(Request $request,  $formId)
     {
- //return  $form;
-        $stream = new Form;
-        $stream->user_id = Auth::id();
-        $stream->saved_for_later_answers = json_encode($request->post());
-        $stream->study_id = $formId;
-        $stream->save();
+$request['saved_for_later_answers'] = json_encode($request->post());
+        //present
+        $request->validate([
 
-//        $questions = json_encode($request->post());
-//        Stream::where('question_uniqid', $request->question_uniqid)
-//            ->update(['questions' => $questions]);
+            'saved_for_later_answers' => 'required|json',
+
+        ]);
+
+
+        DB::table('forms')
+            ->updateOrInsert(
+                ['study_id' => $formId, 'user_id' => Auth::id()],
+                ['saved_for_later_answers' => json_encode($request->post())],
+                ['study_id' => $formId],
+                ['user_id' => Auth::id()],
+                ['save_for_later' => true] //if true then this will be used to retieve save for later form details
+            );
     }
 
     /**
@@ -107,18 +115,25 @@ class FormController extends Controller
 
     public function getFormValues($id){
 
-     $form = Form::where('study_id', $id)->select('saved_for_later_answers')->get();
-
-         //
-        $form =   $form->pluck('saved_for_later_answers');
+        $form = Form::where('study_id', $id)->select('saved_for_later_answers')->get();
+        $form = $form->pluck('saved_for_later_answers');
         $form = json_decode($form);
+        if (count($form)) {
 
+            print_r($form[0]);
+        }
+    }
 
-if(count($form)) {
+    public function globalSiteConfig(Request $request){
 
-    print_r($form[0]);
-
-}
-       // return '[' . join($form, ',') . ']';
+//return $request->path_to_logo;
+        DB::table('cms_form_configs')
+            ->updateOrInsert(
+                ['study_id' => $request->study_id],
+                ['intro_text' => $request->intro_text, 'site_name' => $request->site_name,
+                'path_to_logo' => $request->path_to_logo,
+                'background_colour' => $request->background_colour,
+                'text_colour' => $request->text_colour]
+            );
     }
 }
