@@ -43,7 +43,9 @@ class FormController extends Controller
      */
     public function store(Request $request,  $formId)
     {
-$request['saved_for_later_answers'] = json_encode($request->post());
+
+
+        $request['saved_for_later_answers'] = json_encode($request->post());
         //present
         $request->validate([
 
@@ -55,11 +57,14 @@ $request['saved_for_later_answers'] = json_encode($request->post());
         DB::table('forms')
             ->updateOrInsert(
                 ['study_id' => $formId, 'user_id' => Auth::id()],
-                ['saved_for_later_answers' => json_encode($request->post())],
-                ['study_id' => $formId],
-                ['user_id' => Auth::id()],
-                ['save_for_later' => true] //if true then this will be used to retieve save for later form details
+                ['saved_for_later_answers' => json_encode($request->post()),
+                'study_id' => $formId,
+                'user_id' => Auth::id(),
+                'save_for_later' => true] //if true then this will be used to retieve save for later form details
             );
+
+
+
     }
 
     /**

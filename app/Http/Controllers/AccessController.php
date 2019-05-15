@@ -123,7 +123,8 @@ class AccessController extends Controller
                    CASE
                        WHEN u.id is null THEN text \'register\'
                        ELSE text \'login\'
-                       END AS redirect
+                       END AS redirect,
+                       a.invitee_email
             from accesses a
             left join users u
             ON a.invitee_email = u.email
