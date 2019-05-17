@@ -48,19 +48,15 @@ class FormController extends Controller
         $request['saved_for_later_answers'] = json_encode($request->post());
         //present
         $request->validate([
-
             'saved_for_later_answers' => 'required|json',
-
         ]);
-
 
         DB::table('forms')
             ->updateOrInsert(
                 ['study_id' => $formId, 'user_id' => Auth::id()],
                 ['saved_for_later_answers' => json_encode($request->post()),
                 'study_id' => $formId,
-                'user_id' => Auth::id(),
-                'save_for_later' => true] //if true then this will be used to retieve save for later form details
+                'user_id' => Auth::id()] //if true then this will be used to retieve save for later form details
             );
 
 

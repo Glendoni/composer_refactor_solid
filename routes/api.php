@@ -83,6 +83,91 @@ Route::middleware('auth:api')->group(function () {
        return $Cms_form_config;
     });
 
+    Route::post('/formsaver/{id}/{formId}', function (Request $request, $studyId = null, $formId) {
+
+
+
+
+       // $studyId = $formId;
+        $formFieldName = array_keys($request->post());
+        $formFieldName =  "'" . implode("','", $formFieldName) . "'";
+        $data  = DB::select('
+        (
+        select 
+        s.id as "question_id",
+        s."studyId" as "study_id",
+        T1.id as study_items_id,
+        T1.user_id,
+         T1.siaId,
+         s.questions->>\'type\' as type
+        from streams s
+        LEFT JOIN
+            (select sia.study_id, 
+            si.id,
+            sia.user_id, 
+            sia.id as siaId
+            from study_item_accesses sia
+            LEFT JOIN study_items si
+            on sia.study_items_id = si.id
+            where  user_id  ='.Auth::id().' and si.id=' . $formId . ' and   si.study_id=' . $studyId . ' LIMIT 1
+            ) T1
+        on s."studyId" = T1.study_id
+        where  questions->>\'name\' in (' . $formFieldName . ')
+        and  T1.study_id notnull
+        )'
+        );
+
+
+         $siaId = $data[0]->siaid;
+
+
+
+
+        $i = 0;
+        foreach ($request->post() as $key => $value) {
+
+
+            if (is_array($value)) {
+                $value = null;
+            };
+            $data[$i]->answer = $value;
+            $data[$i]->key = $key;
+            $data[$i];
+            unset($data[$i]->siaid);
+            $i++;
+        }
+        $myArray = json_decode(json_encode($data), true);
+
+
+      $checkForDuplicated =  DB::table('study_item_accesses')
+            ->where([['user_id', Auth::id()],
+                ['study_items_id', $formId],
+                ['study_id', $studyId],
+                ['completed', 1]])
+            ->get();
+
+       if(!count($checkForDuplicated)){
+
+           DB::table('form_answers')->insert($myArray);
+           DB::table('study_item_accesses')
+               ->where([['user_id', Auth::id()],
+
+                   ['study_items_id', $formId],
+                   ['study_id', $studyId]])
+               ->update(['completed' => 1]);
+
+       }else{
+
+           return 'no can do';
+       }
+
+       //
+    });
+
+
+
+
+
 
 });
 
