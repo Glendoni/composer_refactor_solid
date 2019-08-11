@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Form;
 use Illuminate\Http\Request;
@@ -38,10 +39,10 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,  $formId)
+    public function store(Request $request, $formId)
     {
 
 
@@ -55,10 +56,9 @@ class FormController extends Controller
             ->updateOrInsert(
                 ['study_id' => $formId, 'user_id' => Auth::id()],
                 ['saved_for_later_answers' => json_encode($request->post()),
-                'study_id' => $formId,
-                'user_id' => Auth::id()] //if true then this will be used to retieve save for later form details
+                    'study_id' => $formId,
+                    'user_id' => Auth::id()] //if true then this will be used to retieve save for later form details
             );
-
 
 
     }
@@ -66,7 +66,7 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Form  $form
+     * @param \App\Form $form
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,7 +83,7 @@ class FormController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Form  $form
+     * @param \App\Form $form
      * @return \Illuminate\Http\Response
      */
     public function edit(Form $form)
@@ -94,8 +94,8 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Form  $form
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Form $form
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Form $form)
@@ -106,7 +106,7 @@ class FormController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Form  $form
+     * @param \App\Form $form
      * @return \Illuminate\Http\Response
      */
     public function destroy(Form $form)
@@ -114,7 +114,8 @@ class FormController extends Controller
         //
     }
 
-    public function getFormValues($id){
+    public function getFormValues($id)
+    {
 
         $form = Form::where('study_id', $id)->select('saved_for_later_answers')->get();
         $form = $form->pluck('saved_for_later_answers');
@@ -125,16 +126,93 @@ class FormController extends Controller
         }
     }
 
-    public function globalSiteConfig(Request $request){
+    public function globalSiteConfig(Request $request)
+    {
 
 //return $request->path_to_logo;
         DB::table('cms_form_configs')
             ->updateOrInsert(
-                ['study_id' => $request->study_id],
-                ['intro_text' => $request->intro_text, 'site_name' => $request->site_name,
-                'path_to_logo' => $request->path_to_logo,
-                'background_colour' => $request->background_colour,
-                'text_colour' => $request->text_colour]
+                [
+                    'study_id' => $request->study_id
+                ],
+                [
+                    'intro_text' => $request->intro_text,
+                    'site_name' => $request->site_name,
+                    'path_to_logo' => $request->path_to_logo,
+                    'background_colour' => $request->background_colour,
+                    'text_colour' => $request->text_colour
+                ]
             );
+    }
+
+    public function saveForm(Request $request, $formId, $studyId = false)
+    {
+
+        $formFieldName = array_keys($request->post());
+        $formFieldName = "'" . implode("','", $formFieldName) . "'";
+        $data = DB::select('
+        (
+        select 
+        s.id as "question_id",
+        s."studyId" as "study_id",
+        T1.id as study_items_id,
+        T1.user_id,
+         T1.siaId,
+         s.questions->>\'type\' as type
+        from streams s
+        LEFT JOIN
+            (select sia.study_id, 
+            si.id,
+            sia.user_id, 
+            sia.id as siaId
+            from study_item_accesses sia
+            LEFT JOIN study_items si
+            on sia.study_items_id = si.id
+            where  user_id  =' . Auth::id() . ' and si.id=' . $formId . ' and   si.study_id=' . $studyId . ' LIMIT 1
+            ) T1
+        on s."studyId" = T1.study_id
+        where  questions->>\'name\' in (' . $formFieldName . ')
+        and  T1.study_id notnull
+        )'
+        );
+
+        $i = 0;
+        foreach ($request->post() as $key => $value) {
+
+
+            if (is_array($value)) {
+                $value = null;
+            };
+            $data[$i]->answer = $value;
+            $data[$i]->key = $key;
+            $data[$i];
+            unset($data[$i]->siaid);
+            $i++;
+        }
+        $myArray = json_decode(json_encode($data), true);
+
+
+        $checkForDuplicated = DB::table('study_item_accesses')
+            ->where([['user_id', Auth::id()],
+                ['study_items_id', $formId],
+                ['study_id', $studyId],
+                ['completed', 1]])
+            ->get();
+
+        if (!count($checkForDuplicated)) {
+
+            DB::table('form_answers')->insert($myArray);
+            DB::table('study_item_accesses')
+                ->where([['user_id', Auth::id()],
+
+                    ['study_items_id', $formId],
+                    ['study_id', $studyId]])
+                ->update(['completed' => 1]);
+
+        } else {
+
+            return 'no can do';
+        }
+
     }
 }

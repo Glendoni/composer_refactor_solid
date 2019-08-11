@@ -29,6 +29,23 @@ class StudyController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function formGetStudies()
+    {
+        $study = User::find(Auth::id())->access()
+            ->where([['accesses.user_id', Auth::id()]])
+            ->where('accesses.active', true)
+
+            ->get();
+
+        return response()->json($study);
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -138,8 +155,6 @@ $preCheckTableToPreventDuplicates = Study_item::first()->where([['study_id', $id
     public function formStudyItemListings($id)
     {
         return DB::table('study_items')
-            // ->leftJoin('study_item_accesses', 'study_items.id', '=', 'study_item_accesses.study_items_id')
-
             ->whereRaw('id  in (select sia.study_items_id 
                    from study_item_accesses sia
                    join studies s
@@ -178,8 +193,6 @@ and (s.end_date   >  (CURRENT_DATE+1) or s.end_date  is null))')
                     ELSE text \'Registered\'
                     END AS user_status
 from users u
-
-
          join(select distinct a.user_id, a.study_id from accesses a where study_id = ' . $study_id . ') T1
              on u.id = T1.user_id 
          left join(select distinct sia.user_id,
