@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Study;
-use App\Study_item;
-use App\User;
-use App\Stream;
-use App\Study_item_access;
-use Illuminate\Support\Facades\DB;
+use App\Services\StudyService;
+use App\Services\AccessService;
+use App\Services\StudyItemService;
+use App\Services\StudyUserService;
+
 
 class StudyController extends Controller
 {
+    private $studyService;
+    private $studyItemService;
+    private $studyUserService;
+
+    public function __construct(StudyService $studyService, StudyItemService $studyItemService,StudyUserService $studyUserService)
+    {
+        $this->studyService = $studyService;
+        $this->studyItemService = $studyItemService;
+        $this->studyUserService = $studyUserService;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(StudyService $studyService)
     {
-        $study = User::find(Auth::id())->access()
-            ->where('accesses.active', true)
-            ->where('accesses.user_id', Auth::id())
-            ->get();
-
+        $study = $studyService->index();
         return response()->json($study);
     }
 
@@ -33,56 +38,29 @@ class StudyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function formGetStudies()
+    public function formGetStudies(StudyService $studyService)
     {
-        $study = User::find(Auth::id())->access()
-            ->where([['accesses.user_id', Auth::id()]])
-            ->where('accesses.active', true)
-
-            ->get();
-
+        $study = $studyService->index();
         return response()->json($study);
     }
-
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, AccessService $accessService)
     {
-
-        $stream = new Study;
-        $stream->name = $request->name;
-        $stream->save();
-
-        return Study::all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $stream = new Study;
-        $stream->name = $request->name;
-        $stream->save();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
-
+        $scc =   $this->studyService->findStudyByName($request);
+        if (count($scc)) {
+            return  array('error' => 'name already in use');
+        }
+        $new_study =  $studyService->create_new($request);
+        if($new_study->id) {
+            $accessService->create_new($new_study->id);
+            return  array('success' => 'name already in use');
+       }
+        return  array('error' => 'something went wrong');
     }
 
     /**
@@ -91,12 +69,10 @@ class StudyController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(StudyService $studyService, $id)
     {
-
-
-        $study = Study::find($id);
-        return response()->json($study);
+        $editable_study =  $studyService->findStudyById($id);
+        return response()->json($editable_study);
     }
 
     /**
@@ -108,116 +84,48 @@ class StudyController extends Controller
      */
     public function update(Request $request)
     {
-        //
-        $study = Study::find($request->studyId);
-        $study->name = $request->name;
-        $study->description = $request->description;
-        $study->invite_code = $request->invite_code;
-        $study->start_date = $request->start_date;
-        $study->end_date = $request->end_date;
-
-        $study->save();
-
+        $id = $request->studyId; //to be updated
+        $study = $this->studyService->findStudyById($request->studyId);
+        if (!count((array) $study)) {
+            return  array('error' => 'You do not have access to perform this action');
+        }
+        $study = $this->studyService->update($request, $id);
         return response()->json($study);
-
-
     }
 
     public function addStudyItem(Request $request, $id)
     {
-
-$preCheckTableToPreventDuplicates = Study_item::first()->where([['study_id', $id],['name',$request->name]])->get();
-        $study = new Study_item;
-        $study->name = $request->name;
-        $study->note = $request->note;
-        $study->study_id = $request->study_id;
-        $study->created_by = Auth::id();
-
+        $preCheckTableToPreventDuplicates = $this->studyItemService->preCheckTableToPreventDuplicates($request->name, $id);
         if(!count($preCheckTableToPreventDuplicates)){
-            $study->save();
+            $this->studyItemService->create_new($request);
+            return  response()->json(['error' => 'Study item created']);
         }else{
-
-
+            return  response()->json(['error' => 'Study item can not be created']);
         }
-        //
     }
 
     public function studyItemListing($id)
     {
-        return DB::table('study_items')
-            ->whereRaw('study_id =' . $id .
-                ' and id not in (select study_items_id from study_item_accesses  where  value = false and study_id= ' . $id . ')')
-            ->select('name', 'id', 'study_id')
-            ->get();
-    }
-
-
-    public function formStudyItemListings($id)
-    {
-        return DB::table('study_items')
-            ->whereRaw('id  in (select sia.study_items_id 
-                   from study_item_accesses sia
-                   join studies s
-ON sia.study_id = s.id 
-                   where sia.user_id= ' . Auth::id() . ' 
-                   and sia.value= true 
-                   and sia.study_id= ' . $id . ' and s.start_date  < (CURRENT_DATE+1)
-and (s.end_date   >  (CURRENT_DATE+1) or s.end_date  is null))')
-            ->select('name', 'id', 'study_id')
-            ->get();
+        $studyItem = $this->studyItemService->studyItemListing($id);
+        return response()->json($studyItem);
     }
 
     public function formStudyItemListing($id)
     {
-
-
-        $study = User::find(Auth::id())->sublist()
-            ->where('accesses.user_id', Auth::id())
-            ->get();
+        $study = $this->studyItemService->formStudyItemListings($id);
         return response()->json($study);
     }
 
-
     public function study_users($study_id, $study_item_id)
     {
-        return
-
-            DB::select('(select distinct u.id  as username,
-                T2.value,
-                u.name,
-                u.id,
-                T1.study_id,
-                T2.study_items_id,
-                CASE
-                    WHEN T2.name is null THEN text \'Not Registered\'
-                    ELSE text \'Registered\'
-                    END AS user_status
-from users u
-         join(select distinct a.user_id, a.study_id from accesses a where study_id = ' . $study_id . ') T1
-             on u.id = T1.user_id 
-         left join(select distinct sia.user_id,
-                                   sia.value,
-                                   sia.study_items_id,
-                                   si.name
-                   from study_item_accesses sia
-                            join study_items si
-                                 on sia.study_items_id = si.id
-                   where sia.study_id = ' . $study_id . ' and study_items_id= ' . $study_item_id . ') T2
-                  on u.id = T2.user_id)
-                  order by u.name');
+        $studyUser = $this->studyUserService->studyUsers($study_id, $study_item_id);
+        return response()->json($studyUser);
     }
 
     public function study_users_form_populators($id)
     {
-
-        return DB::table('accesses')
-            ->Join('users', 'accesses.user_id', '=', 'users.id')
-            ->Join('study_item_accesses', 'accesses.study_id', '=', 'study_item_accesses.study_id')
-            ->whereRaw('accesses.study_id = ' . $id . ' and accesses.user_id   IN (select user_id from study_item_accesses where study_id = ' . $id . ')')
-            ->selectRaw('distinct users.id')
-            ->get();
-
-
+        $studyUser = $this->studyUserService->study_users_form_populators($id);
+        return response()->json($studyUser);
     }
 
     /**
@@ -233,39 +141,24 @@ from users u
 
     function study_item_access(Request $request)
     {
-        foreach ($request['options'] as  $item) {
-            unset($item['name']);
-            DB::table('study_item_accesses')
-                ->updateOrInsert(
-                    ['study_items_id' => $item['study_items_id'],
-                        'study_id' => $item['study_id'],
-                        'user_id' => $item['user_id']],
-                        $item
-                );
-        }
+//To be improved
+        $study_item_access = $this->studyItemService->study_item_access($request);
+        $this->studyItemService->study_item_accesses_delete_null();
+        $this->studyItemService->study_item_accesses_delete_false();
 
-        DB::table('study_item_accesses')
-            ->where('value', '=',null)->delete();
+        return response()->json($study_item_access);
 
-        DB::table('study_item_accesses')
-            ->where('value', '=',false)->delete();
     }
 
-    function studyItem($id)
+    function studyItem(int $id)
     {
-        return Study_item::where('id', $id)->get();
-
-
+        $studyItem = $this->studyItemService->findStudyById($id);
+        return response()->json($studyItem);
     }
 
     function studyItemUpdate(Request $request, $id)
     {
-        $study = Study_item::find($id);
-        $study->name = $request->name;
-        $study->note = $request->note;
-        $study->study_id = $request->study_id;
-        $study->save();
-
-        return response()->json($study);
+        $studyItemUpdate =  $this->studyItemService->update($request, $id);
+        return response()->json($studyItemUpdate);
     }
 }

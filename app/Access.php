@@ -8,7 +8,7 @@ class Access extends Model
 {
     protected $visible = ['id','study_id','invitee_id', 'user_id'];
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['study_id','invitee_email', 'user_id','created_by','email_confirmation_id', 'active' ];
     //
     public function studies() {
 

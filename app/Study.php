@@ -16,4 +16,9 @@ class Study extends Model
         ''
     ];
 
+    protected $fillable =[
+
+        'name','description','invite_code','start_date','end_date'
+    ];
+
 }
