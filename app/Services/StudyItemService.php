@@ -49,7 +49,7 @@ class StudyItemService
     }
     public function findStudyById(int $id)
     {
-        return $this->studyItem->where_study_item_id($id);
+        return $this->studyItem->where_study_id($id);
     }
 
     function study_item_access(Request $request)

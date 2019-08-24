@@ -32,7 +32,7 @@ class StudyItemRepository
     }
     public function where_study_id($id)
     {
-        return $this->study->find($id);
+        return $this->studyItem->find($id);
     }
 
     public function studyItemListing($id)

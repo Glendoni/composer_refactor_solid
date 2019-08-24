@@ -44,19 +44,19 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/studies', 'StudyController@update');
 
     Route::post('/createStudy', 'StudyController@create');
-
     Route::post('/addStudyItem/{id}', 'StudyController@addStudyItem');
     Route::post('/studyItemUpdate/{id}', 'StudyController@studyItemUpdate');
     Route::post('/study_item_access', 'StudyController@study_item_access');
 
     Route::get('/studies', 'StudyController@index');
 
-    Route::get('/formGetStudies', 'StudyController@formGetStudies');
     Route::get('/getStudyItem/{id}', 'StudyController@studyItem');
     Route::get('/studies/{id}', 'StudyController@edit');
     Route::get('/studyItemListing/{id}', 'StudyController@studyItemListing');
     Route::get('/study_users/{id}/{studyitem}', 'StudyController@study_users');
     Route::get('/study_users_form_populators/{id}', 'StudyController@study_users_form_populators');
+
+    Route::get('/formGetStudies', 'StudyController@formGetStudies');
     Route::get('study_users', function(){
 
         $user =  Auth::id();
@@ -65,7 +65,7 @@ Route::middleware('auth:api')->group(function () {
 });
 //  streams
 Route::middleware('auth:api')->group(function () {
-    Route::post('/createStream', 'StreamController@store');
+    Route::post('/createStream', 'StreamController@create');
     Route::post('/getStudyQuestions', 'StreamController@studyQuestions');
     Route::post('/saveEditStudyField', 'StreamController@update');
 

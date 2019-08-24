@@ -53,14 +53,14 @@ class StudyController extends Controller
     {
         $scc =   $this->studyService->findStudyByName($request);
         if (count($scc)) {
-            return  array('error' => 'name already in use');
+            return  response()->json(array('error' => 'name already in use'));
         }
-        $new_study =  $studyService->create_new($request);
+        $new_study =  $this->studyService->create_new($request);
         if($new_study->id) {
             $accessService->create_new($new_study->id);
-            return  array('success' => 'name already in use');
+            return  response()->json(array('success' => 'name already in use'));
        }
-        return  array('error' => 'something went wrong');
+        return  response()->json(array('error' => 'something went wrong'));
     }
 
     /**
@@ -110,7 +110,7 @@ class StudyController extends Controller
         return response()->json($studyItem);
     }
 
-    public function formStudyItemListing($id)
+    public function formStudyItemListings($id)
     {
         $study = $this->studyItemService->formStudyItemListings($id);
         return response()->json($study);
@@ -147,7 +147,6 @@ class StudyController extends Controller
         $this->studyItemService->study_item_accesses_delete_false();
 
         return response()->json($study_item_access);
-
     }
 
     function studyItem(int $id)

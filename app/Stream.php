@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Stream extends Model
 {
     protected $fillable = [
-        'studyName'
+        'studyName', 'studyId', 'question_uniqid','questions'
     ];
 
 

@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Stream;
-use Illuminate\Support\Arr;
+use App\Services\StreamService;
 
 class StreamController extends Controller
 {
+
+    private $streamService;
+    public function __construct(StreamService $streamService){
+
+        $this->streamService = $streamService;
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,13 +27,9 @@ class StreamController extends Controller
 
     public function studyQuestions(Request $request)
     {
-        $flight = Stream::where('studyId', $request->id)->get();
-        $flight = $flight->pluck('questions');
-        $flight = json_decode($flight);
-        $flight = Arr::flatten($flight);
-
-        print '[' . join($flight, ',') . ']';
-
+       $this->streamService->findStreamById($request->id);
+        $streamItem =  $this->streamService->parseStreamResponse();
+        print '[' . join($streamItem, ',') . ']';
     }
 
     /**
@@ -36,7 +39,8 @@ class StreamController extends Controller
      */
     public function create(Request $request)
     {
-
+        return $streamItem =  $this->streamService->create_new($request);
+        return Stream::all();
     }
 
     /**
@@ -47,18 +51,7 @@ class StreamController extends Controller
      */
     public function store(Request $request)
     {
-        $uniqueID = uniqid();
-        $incomingStream = $request->post();
-        $incomingStream['question_uniqid'] = $uniqueID;
-        $incomingStream = json_encode($incomingStream);
 
-        $stream = new Stream;
-        $stream->questions = $incomingStream;
-        $stream->question_uniqid = $uniqueID;
-        $stream->studyId = $request->studyId;
-        $stream->save();
-
-        return Stream::all();
     }
 
     /**
@@ -70,24 +63,9 @@ class StreamController extends Controller
     public function show($id)
     {
         //
-
-        $flight = Stream::where('question_uniqid', $id)->get();
-        $flight = $flight->pluck('questions');
-        $flight = json_decode($flight);
-        $flight = Arr::flatten($flight);
-
-        print '[' . join($flight, ',') . ']';
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $this->streamService->findStreamByUniqueId($id);
+        $streamItem =  $this->streamService->parseStreamResponse();
+        print '[' . join($streamItem, ',') . ']';
     }
 
     /**
@@ -99,9 +77,7 @@ class StreamController extends Controller
      */
     public function update(Request $request)
     {
-        $questions = json_encode($request->post());
-        Stream::where('question_uniqid', $request->question_uniqid)
-            ->update(['questions' => $questions]);
+      return   $this->streamService->update($request, $request->question_uniqid);
     }
 
     /**
