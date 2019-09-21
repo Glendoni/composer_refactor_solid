@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Form;
-use Illuminate\Http\Request;
+use App\Services\FormService;
 use App\Stream;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class FormController extends Controller
 {
+    public $formService;
+
+    public function __construct(FormService $FormService)
+    {
+        $this->formService = $FormService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,16 +34,6 @@ class FormController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -44,23 +41,14 @@ class FormController extends Controller
      */
     public function store(Request $request, $formId)
     {
-
-
-        $request['saved_for_later_answers'] = json_encode($request->post());
-        //present
+        $jsonRequest = json_encode($request->post());
+        $request['saved_for_later_answers'] = $jsonRequest;
         $request->validate([
             'saved_for_later_answers' => 'required|json',
         ]);
 
-        DB::table('forms')
-            ->updateOrInsert(
-                ['study_id' => $formId, 'user_id' => Auth::id()],
-                ['saved_for_later_answers' => json_encode($request->post()),
-                    'study_id' => $formId,
-                    'user_id' => Auth::id()] //if true then this will be used to retieve save for later form details
-            );
-
-
+        $jsonRequest = $this->formService->saveForLater($jsonRequest, $formId);
+        return response()->json($jsonRequest);
     }
 
     /**
@@ -79,6 +67,50 @@ class FormController extends Controller
 
         print '[' . join($form, ',') . ']';
     }
+
+    public function getFormValues($id)
+    {
+        $this->formService->getFormValues($id);
+        $formDetails = $this->formService->returnFormData();
+        print_r($formDetails);
+    }
+
+
+    public function saveForm(Request $request, $formId, $studyId = false)
+    {
+        $request = $request->post();
+        $this->formService->formId = $formId;
+        $this->formService->studyId = $studyId;
+
+        $this->formService->fieldNameExtractor($request);
+        $myArray = $this->formService->copySaveForLaterJsonToArray($request);
+        $checkForDuplicated = $this->formService->checkForDuplicates();
+        if (!count($checkForDuplicated)) {
+            $this->formService->saveFormAnswers($myArray);
+            return $this->formService->update_study_item_accesses();
+        } else {
+            return 'no can do';
+        }
+    }
+
+    public function globalSiteConfig(Request $request)
+    {
+
+        DB::table('cms_form_configs')
+            ->updateOrInsert(
+                [
+                    'study_id' => $request->study_id
+                ],
+                [
+                    'intro_text' => $request->intro_text,
+                    'site_name' => $request->site_name,
+                    'path_to_logo' => $request->path_to_logo,
+                    'background_colour' => $request->background_colour,
+                    'text_colour' => $request->text_colour
+                ]
+            );
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -114,105 +146,15 @@ class FormController extends Controller
         //
     }
 
-    public function getFormValues($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-
-        $form = Form::where('study_id', $id)->select('saved_for_later_answers')->get();
-        $form = $form->pluck('saved_for_later_answers');
-        $form = json_decode($form);
-        if (count($form)) {
-
-            print_r($form[0]);
-        }
+        //
     }
 
-    public function globalSiteConfig(Request $request)
-    {
 
-//return $request->path_to_logo;
-        DB::table('cms_form_configs')
-            ->updateOrInsert(
-                [
-                    'study_id' => $request->study_id
-                ],
-                [
-                    'intro_text' => $request->intro_text,
-                    'site_name' => $request->site_name,
-                    'path_to_logo' => $request->path_to_logo,
-                    'background_colour' => $request->background_colour,
-                    'text_colour' => $request->text_colour
-                ]
-            );
-    }
-
-    public function saveForm(Request $request, $formId, $studyId = false)
-    {
-
-        $formFieldName = array_keys($request->post());
-        $formFieldName = "'" . implode("','", $formFieldName) . "'";
-        $data = DB::select('
-        (
-        select 
-        s.id as "question_id",
-        s."studyId" as "study_id",
-        T1.id as study_items_id,
-        T1.user_id,
-         T1.siaId,
-         s.questions->>\'type\' as type
-        from streams s
-        LEFT JOIN
-            (select sia.study_id, 
-            si.id,
-            sia.user_id, 
-            sia.id as siaId
-            from study_item_accesses sia
-            LEFT JOIN study_items si
-            on sia.study_items_id = si.id
-            where  user_id  =' . Auth::id() . ' and si.id=' . $formId . ' and   si.study_id=' . $studyId . ' LIMIT 1
-            ) T1
-        on s."studyId" = T1.study_id
-        where  questions->>\'name\' in (' . $formFieldName . ')
-        and  T1.study_id notnull
-        )'
-        );
-
-        $i = 0;
-        foreach ($request->post() as $key => $value) {
-
-
-            if (is_array($value)) {
-                $value = null;
-            };
-            $data[$i]->answer = $value;
-            $data[$i]->key = $key;
-            $data[$i];
-            unset($data[$i]->siaid);
-            $i++;
-        }
-        $myArray = json_decode(json_encode($data), true);
-
-
-        $checkForDuplicated = DB::table('study_item_accesses')
-            ->where([['user_id', Auth::id()],
-                ['study_items_id', $formId],
-                ['study_id', $studyId],
-                ['completed', 1]])
-            ->get();
-
-        if (!count($checkForDuplicated)) {
-
-            DB::table('form_answers')->insert($myArray);
-            DB::table('study_item_accesses')
-                ->where([['user_id', Auth::id()],
-
-                    ['study_items_id', $formId],
-                    ['study_id', $studyId]])
-                ->update(['completed' => 1]);
-
-        } else {
-
-            return 'no can do';
-        }
-
-    }
 }
