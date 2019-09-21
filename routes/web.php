@@ -13,11 +13,5 @@
 
 Route::get('/', function () {
 
-    echo 'NOOOO';
-    exit;
     return view('welcome');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
